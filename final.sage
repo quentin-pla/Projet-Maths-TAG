@@ -1,45 +1,58 @@
 #### SAISIE DEMANDE
 
 def setDemande():
-    global demande
-    cpt = 0
-    while cpt != len(demande):
-        demande = raw_input('Mot: ')
-        demande = demande.lower()                                         #Formatage de demande en minuscule.
-        for char in demande:                                              #Pour chaque caractère dans demande(string)...
-            cpt += checkDemande(char)
-        if cpt != len(demande):
-            cpt = 0
-            print('Mot invalide ! (Caractères valides: a-z)')
+    global demande						#Création de la variale globale demande.
+    cpt = 0							#Initialisation de la variable "cpt" à 0.
+    while cpt != len(demande):					#Tant que cpt ne vaut pas la taille de la chaine demande.
+        demande = raw_input('Mot: ')				#L'utilisateur saisit au clavier le mot qu'il souhaite.
+        demande = demande.lower()       			#Formatage de la chaine de caractères demande en minuscule.
+        for char in demande:            			#Pour chaque caractère dans demande(string)...
+            cpt += checkDemande(char)				#	On ajoute la valeur retournée par checkDemande à cpt.
+        if cpt != len(demande):					#Si cpt est différent de la taille de demande...
+            cpt = 0						#	On réinitialise cpt à 0.
+            print('Mot invalide ! (Caractères valides: a-z)')	#	On affiche un message d'erreur.
         
 #### VERIFICATION DEMANDE
 
+#char(char): caractère à vérifier.
+
 def checkDemande(char):
-    if ord(char)-97 < 0 or ord(char)-97 > 25:                     #  Si le code ASCII-97 du caractère n'est pas compris entre 0 et 25...
-        return 0
-    else:
-        return 1
+    if ord(char)-97 < 0 or ord(char)-97 > 25:	#Si le code ASCII-97 du caractère n'est pas compris entre 0 et 25...
+        return 0				#	On retourne 0.
+    else:					#Sinon...
+        return 1				#	On retourne 1.
 
 #### SAISIE COULEUR
 
 def setColor():
-	global printColor
-	printColor = 'undefined'
-	while printColor != checkColor(printColor):
-		print('Couleurs disponibles: black, grey, red, green, blue, yellow, orange, purple, pink, cyan, lime')
-		printColor = raw_input('Couleur: ')
-		printColor = printColor.lower()                                         #Formatage de demande en minuscule.
-		if printColor != checkColor(printColor):
-			print('Couleur introuvable !')
-	printColor = checkColor(printColor)
+	global printColor										#Création de la variable globale printColor.
+	printColor = 'undefined'									#Initialisation de printColor à 'undefined'.
+	while printColor != checkColor(printColor):							#Tant que printColor est différent de la chaine retournée par checkColor...
+		print('Couleurs: black grey red green blue yellow orange purple pink cyan lime')	#	On affiche les couleurs disponibles.
+		printColor = raw_input('Couleur: ')							#	printColor prend comme valeur le résultat retourné par la fonction. checkColor.
+		printColor = printColor.lower()                                         		#Formatage de printColor en minuscule.
+		if printColor != checkColor(printColor):						#Si printColor est différent de la chaine retournée par checkColor...
+			print('Couleur introuvable !')							#	On affiche un message d'erreur.
+	printColor = checkColor(printColor)								#printColor prend comme valeur le résultat retourné par la fonction.
 
 #### VERIFICATION COULEUR
+
+#printColor(string): chaine de caractères à traiter.
 
 def checkColor(printColor):
     colors=['black','grey','red','green','blue','yellow','orange','purple','pink','cyan','lime']  #Initialisation tableau "colors" contenant les couleurs possibles pour le graffiti.
     if printColor not in str(colors):                                                             #Si printColor n'appartient pas au tableau colors...
-        return '0'                                                                        #  printColor vaut la couleur par défaut rouge.
-    return printColor
+        return '0'										  #On retourne une chaine n'appartenant pas au tableau colors.
+    return printColor										  #On retourne la chaine 
+
+#### SAISIE NOMBRE REPETITION
+
+def setIteration():
+	global iteration
+	while iteration < 1 or iteration > 10:
+		iteration = raw_input('Répétition animation (1-10): ')
+		if iteration < 1 or iteration > 10:
+			print('Nombre de répétitions invalide !')
 
 #### DEFINITION EPAISSEUR GRAFFITI
 
@@ -282,6 +295,7 @@ def Animate(frames,xmin,ymin,xmax,ymax,size,delay,it):
 def main():
     setDemande()                                                                  #Appel de la fonction permettant à l'utilisateur de saisir un mot.
     setColor()                                                                    #Appel de la fonction permettant à l'utilisateur de choisir la couleur.
+    setIteration()								  #Appel de la fonction permettant à l'utilisateur de choisir le nombre de répétitions.
     frames = []                                                                   #Initialisation d'un tableau vide "frames".
     tmpframe = point((0,0),size=0)                                                #Initialisation de l'image tmpframe.
     frames.append(tmpframe)                                                       #Ajout de l'image tmpframe dans le tableau frames.
@@ -776,4 +790,4 @@ functions = [a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z]
 
 #######################################  FIN DEFINITION DES LETTRES  #######################################
 
-Animate(main(),getScaling()['xmin'],getScaling()['ymin'],getScaling()['xmax'],getScaling()['ymax'],getScaling()['figsize'],2,3)  #Création de l'animation
+Animate(main(),getScaling()['xmin'],getScaling()['ymin'],getScaling()['xmax'],getScaling()['ymax'],getScaling()['figsize'],2,iteration)  #Création de l'animation
