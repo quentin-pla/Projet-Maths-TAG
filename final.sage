@@ -1,5 +1,6 @@
-import sys							#Import du module "sys"
-#sys.setdefaultencoding('utf-8')	#Paramétrage du système d'encodage par défaut en UTF-8
+#### ENCODAGE UTF-8
+
+# -*- cod# -*- coding: utf-8 -*-
 
 #### SAISIE DEMANDE
 
