@@ -14,6 +14,7 @@ def showInfos():
 	print(' Caractères valides: a-z (10 caractères maximum)')							#Caractères valides pour le mot à saisir au clavier.
 	print(' Couleurs: black grey red green blue yellow orange purple pink cyan lime')	#Couleurs disponibles pour le graffiti.
 	print(' Nombre de répétitions de l\'animation: 1-10' )								#Nombre de répétitions pour l'animation.
+	print(' Pour voir l\'animation, ouvrir l\'image avec un navigateur internet')		#Affichage de l'animation générée.
 	print('###############\n')															#Fin affichage des informations.
 
 #### SAISIE DEMANDE
@@ -59,9 +60,9 @@ def setColor():
 
 def checkColor(printColor):
 	colors=['black','grey','red','green','blue','yellow','orange','purple','pink','cyan','lime']	#Initialisation tableau "colors" contenant les couleurs possibles pour le graffiti.
-	if printColor not in str(colors):																#Si printColor n'appartient pas au tableau colors...
-		return 'null'																				#	On retourne une chaine n'appartenant pas au tableau colors.
-	return printColor																				#On retourne la chaine.
+	if any(printColor == color for color in colors):												#Si printColor appartient au tableau colors...
+		return printColor																			#	On retourne la chaine.
+	return 'null'																					#On retourne une chaine n'appartenant pas au tableau colors.
 
 #### SAISIE NOMBRE REPETITION
 
@@ -94,7 +95,7 @@ def getScaling():
 		pointSize = 500;													#Épaisseur du graffiti à 500
 		return {'xmin':-5,'ymin':-50,'xmax':95,'ymax':50,'figsize':10}		#	Retourne les paramètres d'affichage pour afficher au maximum 5 caractères.
 	else:																	#Sinon...
-		pointSize = 150;													#Épaisseur du graffiti à 250
+		pointSize = 100;													#Épaisseur du graffiti à 100
 		return {'xmin':-5,'ymin':-100,'xmax':195,'ymax':100,'figsize':10}	#	Retourne les paramètres d'affichage pour afficher au maximum 10 caractères.
 
 #### DEFINITION ESPACE ENTRE CARACTERES
